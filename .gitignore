@@ -1,2 +1,5 @@
 # Bazel generated files
 bazel-*
+
+# MacOS indexing files
+.DS_Store

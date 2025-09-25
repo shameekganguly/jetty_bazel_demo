@@ -1,6 +1,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <gz/common/Console.hh>
+#include <gz/msgs/boolean.pb.h>
 #include <gz/msgs/convert/StdTypes.hh>
 #include <gz/msgs/entity_factory.pb.h>
 #include <gz/msgs/stringmsg.pb.h>
@@ -68,5 +69,49 @@ int main(int argc, char **argv) {
     return -1;
   }
   gzmsg << "Connection initialized\n";
+
+  // Spawn the model.
+  constexpr std::string_view kModelPath = "bazel.sdf";
+  gz::msgs::EntityFactory ef_msg;
+  ef_msg.set_sdf_filename(kModelPath);
+  gz::msgs::Boolean reply;
+  bool result;
+  // bool success = conn.GetNode()->Request("/world/default/create", ef_msg,
+  // 1000,
+  //                                        reply, result);
+
+  std::mutex serviced_mutex;
+  bool serviced = false;
+  std::condition_variable serviced_cv;
+  std::function<void(const gz::msgs::Boolean &, const bool)> callback_fn =
+      [&serviced_mutex, &serviced, &serviced_cv, &reply,
+       &result](const gz::msgs::Boolean &reply_in, const bool result_in) {
+        reply = reply_in;
+        result = result_in;
+        std::unique_lock l(serviced_mutex);
+        serviced = true;
+        serviced_cv.notify_all();
+      };
+  bool success =
+      conn.GetNode()->Request("/world/default/create", ef_msg, callback_fn);
+  if (!success) {
+    gzerr << "Failed to request model to be spawned!";
+    return -1;
+  }
+  {
+    std::unique_lock l(serviced_mutex);
+    bool finished =
+        serviced_cv.wait_for(l, 1s, [&serviced] { return serviced; });
+    if (!finished) {
+      gzerr << "Service call timed out";
+      return -1;
+    }
+  }
+  if (!result) {
+    gzerr << "Create service call result negative!";
+    return -1;
+  }
+  gzmsg << "Requested model to be spawned\n";
+
   return 0;
 }
