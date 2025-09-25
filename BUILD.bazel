@@ -1,0 +1,31 @@
+load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_license//rules:license.bzl", "license")
+
+package(
+    default_applicable_licenses = [":license"],
+    features = [
+        "layering_check",
+        "parse_headers",
+    ],
+)
+
+license(
+    name = "license",
+    package_name = "jetty_bazel_demo",
+)
+
+licenses(["notice"])
+
+cc_binary(
+    name = "spawn_model",
+    srcs = ["spawn_model.cc"],
+    env = {
+        "GZ_PARTITION": "jetty",
+        "GZ_IP": "127.0.0.1",
+    },
+    deps = [
+        "@gz-common",
+        "@gz-msgs//:gzmsgs_cc_proto",
+        "@gz-transport",
+    ],
+)
