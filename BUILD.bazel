@@ -27,5 +27,6 @@ cc_binary(
         "@gz-common",
         "@gz-msgs//:gzmsgs_cc_proto",
         "@gz-transport",
+        "@gz-utils//cli:cli11",
     ],
 )
