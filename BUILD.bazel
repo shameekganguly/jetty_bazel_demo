@@ -19,10 +19,7 @@ licenses(["notice"])
 cc_binary(
     name = "spawn_model",
     srcs = ["spawn_model.cc"],
-    env = {
-        "GZ_PARTITION": "jetty",
-        "GZ_IP": "127.0.0.1",
-    },
+    env = {"GZ_IP": "127.0.0.1"},
     deps = [
         "@gz-common",
         "@gz-msgs//:gzmsgs_cc_proto",
