@@ -1,3 +1,4 @@
+# Contains flags to apply when building this repo with Bazel.
 common --enable_bzlmod
 common --lockfile_mode=off
 
