@@ -27,7 +27,3 @@ bazel_dep(name = "gz-sensors", version = "10.0.0-pre1")
 bazel_dep(name = "gz-transport", version = "15.0.0-pre2")
 bazel_dep(name = "gz-utils", version = "4.0.0-pre1")
 bazel_dep(name = "sdformat", version = "16.0.0-pre2")
-local_path_override(
-    module_name = "gz-transport",
-    path = "/Users/shameek/jetty_demo/gz-transport",
-)
