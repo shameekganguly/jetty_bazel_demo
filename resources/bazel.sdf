@@ -2,7 +2,9 @@
 <sdf version="1.12">
   <model name="bazel">
     <link name="link">
-      <inertial auto='true'/>
+      <inertial>
+        <pose>2.5 -0.5 0 0 0 0</pose>
+      </inertial>
 
       <collision name="collision_b">
         <geometry>
@@ -20,7 +22,6 @@
       </visual>
 
       <collision name="collision_a">
-        <pose>0.1 0 0 0 0 0</pose>
         <geometry>
           <mesh optimization="convex_hull">
             <uri>A.gltf</uri>
@@ -28,7 +29,6 @@
         </geometry>
       </collision>
       <visual name="visual_a">
-        <pose>0.1 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>A.gltf</uri>
@@ -37,7 +37,6 @@
       </visual>
 
       <collision name="collision_z">
-        <pose>0.2 0 0 0 0 0</pose>
         <geometry>
           <mesh optimization="convex_hull">
             <uri>Z.gltf</uri>
@@ -45,7 +44,6 @@
         </geometry>
       </collision>
       <visual name="visual_z">
-        <pose>0.2 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>Z.gltf</uri>
@@ -54,7 +52,6 @@
       </visual>
 
       <collision name="collision_e">
-        <pose>0.3 0 0 0 0 0</pose>
         <geometry>
           <mesh optimization="convex_hull">
             <uri>E.gltf</uri>
@@ -62,7 +59,6 @@
         </geometry>
       </collision>
       <visual name="visual_e">
-        <pose>0.3 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>E.gltf</uri>
@@ -71,7 +67,6 @@
       </visual>
 
       <collision name="collision_l">
-        <pose>0.4 0 0 0 0 0</pose>
         <geometry>
           <mesh optimization="convex_hull">
             <uri>L.gltf</uri>
@@ -79,7 +74,6 @@
         </geometry>
       </collision>
       <visual name="visual_l">
-        <pose>0.4 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>L.gltf</uri>

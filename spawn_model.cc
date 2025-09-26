@@ -107,6 +107,7 @@ public:
       if (!Remove()) {
         return false;
       }
+      std::this_thread::sleep_for(100ms);
     }
     return true;
   }
