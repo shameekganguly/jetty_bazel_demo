@@ -1,3 +1,15 @@
+/* Gazebo demo client
+
+This client program talks to a running Gazebo Simulation and spawns a model
+repeatedly until it is stopped.
+- Gazebo must be running unpaused.
+- `GZ_SIM_RESOURCE_PATH` must be set to point to the `resources/` directory.
+
+CLI Help:
+```shell
+bazel run spawn_model -- --help
+```
+*/
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
@@ -8,6 +20,8 @@
 
 #include <gz/common/Console.hh>
 #include <gz/common/SignalHandler.hh>
+#include <gz/math/Pose3.hh>
+#include <gz/math/Vector3.hh>
 #include <gz/msgs/boolean.pb.h>
 #include <gz/msgs/convert/Pose.hh>
 #include <gz/msgs/convert/StdTypes.hh>

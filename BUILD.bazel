@@ -1,27 +1,38 @@
+"""
+Jetty Demo client - BUILD.bazel
+
+Learn more about how BUILD.bazel files at https://bazel.build/build/style-guide.
+"""
+
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
-load("@rules_license//rules:license.bzl", "license")
 
 package(
-    default_applicable_licenses = [":license"],
+    # Enable layering check and parse headers to ensure transitive dependencies
+    # are minimized.
+    # See https://bazel.build/docs/bazel-and-cpp#toolchain-features for more
+    # info.
     features = [
         "layering_check",
         "parse_headers",
     ],
 )
 
-license(
-    name = "license",
-    package_name = "jetty_bazel_demo",
-)
-
-licenses(["notice"])
-
+# Executable C++ binary target for the demo client.
+# ```
+# bazel run -c opt spawn_model
+# ```
+# MacOS users may have to set these additional flags to compile successfully:
+# `--macos_minimum_os=15.5 --features=-layering_check`.
+#
+# See https://bazel.build/reference/be/c-cpp#cc_binary for details on
+# parameters.
 cc_binary(
     name = "spawn_model",
     srcs = ["spawn_model.cc"],
     env = {"GZ_IP": "127.0.0.1"},
     deps = [
         "@gz-common",
+        "@gz-math",
         "@gz-msgs//:gzmsgs_cc_proto",
         "@gz-transport",
         "@gz-utils//cli:cli11",
