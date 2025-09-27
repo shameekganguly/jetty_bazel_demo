@@ -1,3 +1,5 @@
+![Demo client program running in Jetty Demo world](demo.gif)
+
 This demo program showcases use of the
 [Bazel build system](https://bazel.build/) to run a client
 program with the [Gazebo simulator](https://gazebosim.org/home).
